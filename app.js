@@ -4,6 +4,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import methodOverride from "method-override";
+import ejsMate from "ejs-mate";
 const app = express();
 
 // connecting with thw database
@@ -26,6 +27,11 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: "true" }));
 app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.join(__dirname, "public")));
+
+import userRoutes from "./routes/user.js";
+app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
