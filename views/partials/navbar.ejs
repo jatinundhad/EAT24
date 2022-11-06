@@ -18,6 +18,15 @@
         <a class="nav-link" href="#">Items</a>
         <a class="nav-link" href="#">Table Booking</a>
       </div>
+      <div style="margin-left: auto;" class="d-flex">
+        <% if(!currentUser){ %> 
+        <a href="/login" class="btn btn-primary m-1">login</a>
+        <a href="/register" class="btn btn-primary m-1">Register</a>
+        <% } %> 
+        <form action="/logout" method="get">
+          <button class="btn btn-primary m-1">logout</button>
+        </form>
+      </div>
     </div>
   </div>
 </nav>

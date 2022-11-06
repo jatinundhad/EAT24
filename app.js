@@ -5,6 +5,10 @@ import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import methodOverride from "method-override";
 import ejsMate from "ejs-mate";
+import session from "express-session";
+import passport from "passport";
+import User from "./model/user.js";
+import flash from "connect-flash";
 const app = express();
 
 // connecting with thw database
@@ -29,6 +33,35 @@ app.use(express.urlencoded({ extended: "true" }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
+app.use(flash());
+
+// creating the session
+const sessionConfig = {
+  secret: "thisshouldbeagoodlogic",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  },
+};
+app.use(session(sessionConfig));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 import userRoutes from "./routes/user.js";
 app.use("/", userRoutes);
