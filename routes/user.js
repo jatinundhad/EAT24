@@ -41,15 +41,16 @@ router.post(
     failureFlash: true,
   }),
   (req, res) => {
-    req.flash("success", "Welcome to EAT24!!!");
+    req.flash("success", `Welcome ${req.user.username}!!!`);
     res.redirect("/");
   }
 );
 
 router.get("/logout", (req, res, next) => {
-  req.logout((err) => {
+  const username = req.user.username;
+  req.logout(function (err) {
     if (err) return next(err);
-    req.flash("success", "Goodbye, see you soon!!!");
+    req.flash("success", `Goodbye ${username}, see you soon!!!`);
     res.redirect("/login");
   });
 });

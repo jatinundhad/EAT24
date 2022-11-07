@@ -9,6 +9,7 @@ import session from "express-session";
 import passport from "passport";
 import User from "./model/user.js";
 import flash from "connect-flash";
+import ExpressError from "./utils/ExpressError.js";
 const app = express();
 
 // connecting with thw database
@@ -68,6 +69,15 @@ app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
+});
+
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page Not found"));
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode, message } = err;
+  res.render("Error.ejs", { statusCode, message });
 });
 
 app.listen(4000, () => {
