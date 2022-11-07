@@ -1,0 +1,45 @@
+@keyframes visibility {
+  0% {
+    transform: translateX(-900px);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes up {
+  0% {
+    transform: translateY(300px);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+#animation {
+  animation-name: visibility;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+
+#animation2 {
+  animation-name: up;
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+}
+
+body {
+  background-color: #e5e5e5;
+}
