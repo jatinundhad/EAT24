@@ -42,4 +42,20 @@
 
 body {
   background-color: #e5e5e5;
+  font-family: "Public Sans", sans-serif;
+}
+
+.user-thumbnail {
+  margin-left: auto;
+  margin-right: 30px;
+  text-decoration: none;
+}
+
+.user-thumbnail > .username {
+  margin-left: 11px;
+  font-weight: 400;
+  color: grey;
+}
+
+#navbar-brand {
 }
