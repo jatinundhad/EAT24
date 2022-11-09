@@ -20,3 +20,9 @@
     );
   });
 })();
+
+// for vanishing the alert message
+setTimeout(() => {
+  document.getElementById("alert-message").style.display = "none";
+  console.log("hello");
+}, 3200);
