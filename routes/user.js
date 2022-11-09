@@ -59,4 +59,9 @@ router.get("/profile/:id", (req, res) => {
   res.render("user/profile.ejs");
 });
 
+router.post("/profile/:id", (req, res) => {
+  console.log(req.body.user);
+  res.send(req.body.user);
+});
+
 export default router;
