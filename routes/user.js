@@ -20,7 +20,7 @@ router.post(
       const registeredUser = await User.register(newUser, password);
       req.login(registeredUser, (err) => {
         if (err) return next(err);
-        req.flash("success", "Welcome to EAT24!!!");
+        req.flash("success", `Welcome ${req.user.username}!!!`);
         res.redirect("/");
       });
     } catch (e) {
@@ -55,13 +55,43 @@ router.get("/logout", (req, res, next) => {
   });
 });
 
-router.get("/profile/:id", (req, res) => {
-  res.render("user/profile.ejs");
-});
+router.get(
+  "/profile/:id",
+  AsyncCatch(async (req, res) => {
+    const { id } = req.params;
+    const foundUser = await User.findById(id);
+    res.render("user/profile.ejs", {
+      profile: foundUser,
+    });
+  })
+);
 
-router.post("/profile/:id", (req, res) => {
-  console.log(req.body.user);
-  res.send(req.body.user);
-});
+router.put(
+  "/profile/:id",
+  AsyncCatch(async (req, res) => {
+    const { id } = req.params;
+    const { user } = req.body;
+    const foundUser = await User.findById(id);
+    foundUser.name.firstName = user.firstName;
+    foundUser.name.lastName = user.lastName;
+    foundUser.phoneNo = user.phoneno;
+    foundUser.profileCompleted = true;
+    foundUser.address.push({
+      houseNo: user.houseno,
+      street: user.street,
+      landmark: user.landmark,
+      city: user.city,
+      country: user.country,
+      pinCode: user.pincode,
+    });
+
+    const updatedProfile = await foundUser.save();
+    req.flash(
+      "success",
+      `${updatedProfile.username}, Your Profile is Ready!!!`
+    );
+    res.redirect(`/profile/${id}`);
+  })
+);
 
 export default router;

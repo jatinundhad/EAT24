@@ -67,6 +67,9 @@ app.use((req, res, next) => {
 import userRoutes from "./routes/user.js";
 app.use("/", userRoutes);
 
+import profileRoutes from "./routes/profile.js";
+app.use("/", profileRoutes);
+
 app.get("/", (req, res) => {
   res.render("home.ejs");
 });

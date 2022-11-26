@@ -26,6 +26,10 @@
     opacity: 0.4;
   }
 
+  80% {
+    transform: translateY(-300px);
+  }
+
   100% {
     opacity: 0;
   }
@@ -75,10 +79,10 @@ body {
   color: black;
 }
 
-#all-form {
+#notify-message {
   position: fixed;
-  left: 200px;
-  top: 115px;
+  z-index: 1;
+  width: 80em;
 }
 
 #user-profile {
@@ -89,5 +93,9 @@ body {
 #alert-message {
   animation-name: vanish;
   animation-delay: 3s;
-  animation-duration: 0.2s;
+  animation-duration: 1s;
+}
+
+.container {
+  margin-top: 80px;
 }

@@ -13,6 +13,6 @@ $npm install
 
 step #3:
 run in command prompt
-nodemon app.js
+npm start
 
 Now in your browser goto localhost:4000 port

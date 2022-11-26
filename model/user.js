@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 import passportLocalMongoose from "passport-local-mongoose";
 
 const userSchema = new Schema({
+  profileCompleted: {
+    type: Boolean,
+    default: false,
+  },
   email: {
     type: String,
     required: true,
@@ -12,7 +16,7 @@ const userSchema = new Schema({
   },
   name: {
     firstName: String,
-    LastName: String,
+    lastName: String,
   },
   address: [
     {
@@ -24,6 +28,10 @@ const userSchema = new Schema({
       pinCode: Number,
     },
   ],
+  avatar: {
+    type: String,
+    default: "/Profile_Photo.jpg",
+  },
 });
 
 userSchema.plugin(passportLocalMongoose);
